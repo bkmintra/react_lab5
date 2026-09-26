@@ -1,17 +1,21 @@
-import { users } from './data/users.js'
-import Layout from './components/Layout.jsx'
-import ProfileCard from './components/ProfileCard.jsx'
+import { Routes, Route } from 'react-router-dom';
+import Layout from './components/Layout';
+import Dashboard from './pages/Dashboard';
+import Directory from './pages/Directory';
+import EmployeeDetail from './pages/EmployeeDetail';
+import ManageEmployee from './pages/ManageEmployee';
 
 function App() {
   return (
     <Layout>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-        {users.map((user) => (
-          <ProfileCard key={user.id} user={user} />
-        ))}
-      </div>
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/directory" element={<Directory />} />
+        <Route path="/directory/:id" element={<EmployeeDetail />} />
+        <Route path="/manage" element={<ManageEmployee />} />
+      </Routes>
     </Layout>
-  )
+  );
 }
 
-export default App
+export default App;

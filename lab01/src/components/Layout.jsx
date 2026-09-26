@@ -1,29 +1,47 @@
+import { Link, useLocation } from 'react-router-dom';
+
 export default function Layout({ children }) {
+  const location = useLocation();
+
+  const navLinks = [
+    { path: '/', label: 'Dashboard' },
+    { path: '/directory', label: 'Team Directory' },
+    { path: '/manage', label: 'Add Employee' },
+  ];
+
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 py-11 px-6 sm:px-10">
+    <div className="min-h-screen bg-slate-50 text-slate-900 py-6 px-4 sm:py-11 sm:px-10">
       <div className="max-w-[1200px] mx-auto">
-        <header className="text-center mb-8">
-          <div className="text-[13px] tracking-wider uppercase text-slate-500 font-bold mb-2.5">
-            Mockup · Lab Day 1
+        <header className="mb-8">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b pb-4">
+            <div>
+              <div className="text-[13px] tracking-wider uppercase text-slate-500 font-bold mb-1">
+                Assignment 1 · React SPA
+              </div>
+              <h1 className="text-3xl font-extrabold text-slate-900">
+                Team Directory App
+              </h1>
+            </div>
+            <nav className="mt-4 sm:mt-0 flex gap-4">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.path}
+                  to={link.path}
+                  className={`font-medium ${
+                    location.pathname === link.path
+                      ? 'text-blue-600 underline underline-offset-4'
+                      : 'text-slate-600 hover:text-slate-900'
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </nav>
           </div>
-          <h1 className="text-3xl font-extrabold text-slate-900 mb-1.5">
-            ทีมของเรา
-          </h1>
-          <p className="text-[15px] text-slate-500">
-            การ์ดทุกใบมาจาก{' '}
-            <code className="bg-slate-200/70 text-slate-800 px-1.5 py-0.5 rounded text-sm font-mono">
-              src/data/users.js
-            </code>{' '}
-            array เดียว — เพิ่มคนที่ 7 ในไฟล์นั้นแล้วการ์ดต้องโผล่เอง
-          </p>
         </header>
 
         <main>{children}</main>
-
-        <footer className="mt-8 text-xs text-slate-400 text-center">
-          Avatar = ตัวอักษรแรกของชื่อ · Badge = children ไม่ใช่ prop ชื่อ text · การ์ดหัวหน้าทีม = ขอบหนา + วงกลมใหญ่กว่า + ป้ายม่วงเพิ่ม 1 ใบ · จอเล็กเหลือ 1 คอลัมน์
-        </footer>
       </div>
     </div>
-  )
+  );
 }
